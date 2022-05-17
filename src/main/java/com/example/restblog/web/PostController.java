@@ -28,7 +28,7 @@ public class PostController {
     }
 
     //this method will return a single Post object
-    @GetMapping
+    @GetMapping("{id}")
     //getByID() has one parameter mapped by @PathVariable to the route's {id}
     //the parameter is of type Long and is named id
     public Post getById(@PathVariable Long id){
@@ -44,10 +44,19 @@ public class PostController {
     //create posts - Make createPost() & use @PostMapping to allow POST requests/responses to be handled in PostController
     @PostMapping
     //This method will be private, return void and accept a Post object
-    private void createPost(@RequestBody Post newPost){
-        System.out.println(newPost);
+    public void createPost(@RequestBody Post post){
+        System.out.println(post);
     }
     //update posts
-
+    //Make updatePost() and use @PutMapping to allow PUT requests/responses to be handled in PostController
+    @PutMapping("{id}")
+    //will help get the POST from the db by ID, update it in the code, then save it back to the database
+    public void updatePost(@PathVariable Long id, @RequestBody Post post){
+        System.out.println(post);
+    }
     //delete posts
+    @DeleteMapping("{id}")
+    public void deletePost(@PathVariable Long id, @RequestBody Post post){
+        System.out.println(post);
+    }
 }
