@@ -1,10 +1,7 @@
 package com.example.restblog.web;
 
 import com.example.restblog.data.Post;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,4 +40,14 @@ public class PostController {
         }
         return new Post();
     }
+
+    //create posts - Make createPost() & use @PostMapping to allow POST requests/responses to be handled in PostController
+    @PostMapping
+    //This method will be private, return void and accept a Post object
+    private void createPost(@RequestBody Post newPost){
+        System.out.println(newPost);
+    }
+    //update posts
+
+    //delete posts
 }
