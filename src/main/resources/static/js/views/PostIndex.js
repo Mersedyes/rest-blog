@@ -7,6 +7,15 @@ export default function PostIndex(props) {
             <div id="posts-container">
                 ${props.posts.map(post => `<h3>${post.title}</h3>`).join('')}   
             </div>
+            <div id="new-post-form" class="new-post-form">
+            <div type="text" id="new-post-title" class="new-post-title" placeholder="Post Title Here"
+            </div>
+            
+            <br>
+            
+            <div>
+            
+</div>
         </main>
     `;
 }
