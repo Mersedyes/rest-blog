@@ -50,8 +50,8 @@ export default function PostIndex(props) {
             e.preventDefault();
             const newPost = {
                 title: $("#add-post-title").val(),
-                content: $("#add-post-content").val();
-            }
+                content: $("#add-post-content").val()
+            };
 
             const request = {
                 method: requestMethod,
