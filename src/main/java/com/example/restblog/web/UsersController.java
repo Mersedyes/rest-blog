@@ -1,8 +1,13 @@
 package com.example.restblog.web;
 
-
+import com.example.restblog.data.Post;
 import com.example.restblog.data.User;
+import com.example.restblog.service.UserService;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validattion.Valid;
+import javax.validation.constraints.Size;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users", headers = "Accept=application/json")
