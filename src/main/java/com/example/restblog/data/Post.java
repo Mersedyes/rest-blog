@@ -4,11 +4,13 @@ public class Post {
     private Long id;
     private String title;
     private String content;
+    private User user;
 
-    public Post(Long id, String title, String content) {
+    public Post(Long id, String title, String content, User user) {
         this.id = id;
         this.title = title;
         this.content = content;
+        this.user = user;
     }
 
     public Post() {
@@ -37,6 +39,14 @@ public class Post {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

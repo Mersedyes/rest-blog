@@ -54,17 +54,17 @@ public class UserService {
     //Taken from UserController
     private List<User> setUserList(){
         List<User> userList = new ArrayList<>();
-        userList.add(new User(1L, "billyjean","billyjeanisnotmylover@gmail.com", "444444"));
+        userList.add(new User(1L, "billyjean","billyjeanisnotmylover@gmail.com", "44444"));
         userList.add(new User(2L, "avamarie","avamaria@gmail.com", "12345"));
         return userList;
     }
 
     //Taken from PostsController
     private List<Post> setPostsList(){
-        List<Post> postsList = new ArrayList<>();
-        postsList.add(new Post(1L, "Awesome content", "Awesome content", userList.get(0)));
-        postsList.add(new Post(2L, "Awesome content", "Awesome content", userList.get(1)));
-        postsList.add(new Post(3L, "Awesome content", "Awesome content", userList.get(2)));
-        return postsList;
+        List<Post> postList = new ArrayList<>();
+        postList.add(new Post(1L, "Awesome content", "Awesome content", userList.get(0)));
+        postList.add(new Post(2L, "Awesome content", "Awesome content", userList.get(1)));
+        postList.add(new Post(3L, "Awesome content", "Awesome content", userList.get(2)));
+        return postList;
     }
 }
