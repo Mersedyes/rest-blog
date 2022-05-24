@@ -1,4 +1,5 @@
 package com.example.restblog.data;
 
-public interface PostsRepository {
+//TODO: NEED PostsRepository
+public interface PostsRepository extends JpaRepository<Post, Long> {
 }

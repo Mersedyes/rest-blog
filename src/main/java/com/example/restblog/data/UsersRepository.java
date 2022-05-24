@@ -1,5 +1,7 @@
 package com.example.restblog.data;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 public interface UsersRepository {
     //TODO: NEED USERSREPOSITORY
     public interface UsersRepository extends JpaRepository<User, Long>{

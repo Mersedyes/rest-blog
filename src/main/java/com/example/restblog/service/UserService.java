@@ -2,69 +2,78 @@ package com.example.restblog.service;
 
 
 import com.example.restblog.data.Post;
+import com.example.restblog.data.PostsRepository;
 import com.example.restblog.data.User;
+import com.example.restblog.data.UsersRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-//Service allows us to register and inject UserService into any other class we want using Spring's IoC Container
+// @Service allows us to register and inject UserService into any other class we want using Spring's IoC Container
 @Service
 public class UserService {
 
-    //TODO: we refactored UsersController an PostsController to remove all the sausage-making of posts and users
-    // userList and posts are our pretend database for now
-    private List<User> userList = setUserList();
-    private List<Post> posts = setPostsList();
+    //    TODO: inject UsersRepository and PostsRepository into UserService class via constructor injection
+    private final UsersRepository usersRepository;
+    private final PostsRepository postsRepository;
 
-    public List<User> getUsersList() {return userList;}
-    public List<Post> getPostList() {return posts;}
+    public UserService(UsersRepository usersRepository, PostsRepository postsRepository){
+        this.usersRepository = usersRepository;
+        this.postsRepository = postsRepository;
+    }
 
-    //We need to associate posts and users here
+    public List<User> getUsersList(){ // TODO: rename this 'getAllUsers'
+        return usersRepository.findAll();
+    }
+
+    public List<Post> getPostList(){ // TODO rename this to getAllPosts
+        return postsRepository.findAll();
+    }
+
+    // We need to associate posts and users here
     public void addPost(Post newPost, String username){
 
-        //get the User object who made the post
+        // get the User object who made the post
         User user = getUserByUsername(username);
 
-        //associate the post with the user object
+        // associate the post with the user object
         user.getPosts().add(newPost);
+        // associate the *user* with the post object
+        newPost.setUser(user);
 
-        //add the post to the post list (the pseudo db)
-        posts.add(newPost);
+        // TODO: call postsRepository.save(newPost)
+        postsRepository.save(newPost);
     }
 
-    //Taken from UsersController
+    // Taken from UsersController
     public User getUserById(Long id){
-        for(User user : userList){
-            if(user.getId().equals(id)){
-                return user;
-            }
-        } return null;
+        // TODO: use usersRepository.findById(id).orElseThrow()
+        return usersRepository.findById(id).orElseThrow(); //throws an exception if the user cannot be found by id
     }
 
-    //Taken from UsersController
+    // Taken from UsersController
     public User getUserByUsername(String username){
-        for(User user : userList){
-            if (user.getUsername().equals(username)){
-                return user;
-            }
-        } return null;
+        // TODO: don't forget to change this to usersRepository.findByUsername(username)
+        return usersRepository.findByUsername(username);
     }
 
-    //Taken from UserController
-    private List<User> setUserList(){
-        List<User> userList = new ArrayList<>();
-        userList.add(new User(1L, "billyjean","billyjeanisnotmylover@gmail.com", "44444"));
-        userList.add(new User(2L, "avamarie","avamaria@gmail.com", "12345"));
-        return userList;
+    public void updatePost(long postId, Post post){
+        Post postToUpdate = postsRepository.findById(postId).orElseThrow();
+
+        // TODO: Safety first!
+        if (post.getContent() != null  && !post.getContent().isEmpty()){
+            postToUpdate.setContent(post.getContent());
+        }
+        if (post.getTitle() != null && !post.getTitle().isEmpty()){
+            postToUpdate.setTitle(post.getTitle());
+        }
+
+        postsRepository.save(postToUpdate);
     }
 
-    //Taken from PostsController
-    private List<Post> setPostsList(){
-        List<Post> postList = new ArrayList<>();
-        postList.add(new Post(1L, "Awesome content", "Awesome content", userList.get(0)));
-        postList.add(new Post(2L, "Awesome content", "Awesome content", userList.get(1)));
-        postList.add(new Post(3L, "Awesome content", "Awesome content", userList.get(2)));
-        return postList;
+    public void deletePostById(long id){
+        // TODO: change old code to postsRepository.deleteById(id)
+        postsRepository.deleteById(id);
     }
 }
