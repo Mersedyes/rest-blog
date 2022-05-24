@@ -1,20 +1,31 @@
 package com.example.restblog.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.DynamicUpdate;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "post")
+@DynamicUpdate
 public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String content;
+
+    @ManyToOne
+    @JsonIgnoreProperties("post")
     private User user;
 
+    public Post() {
+    }
     public Post(Long id, String title, String content, User user) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.user = user;
-    }
-
-    public Post() {
-
     }
 
     public Long getId() {
